@@ -1,0 +1,5 @@
+wget -O cellranger-3.1.0.tar.gz "https://cf.10xgenomics.com/releases/cell-exp/cellranger-3.1.0.tar.gz?Expires=1568198894&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cDovL2NmLjEweGdlbm9taWNzLmNvbS9yZWxlYXNlcy9jZWxsLWV4cC9jZWxscmFuZ2VyLTMuMS4wLnRhci5neiIsIkNvbmRpdGlvbiI6eyJEYXRlTGVzc1RoYW4iOnsiQVdTOkVwb2NoVGltZSI6MTU2ODE5ODg5NH19fV19&Signature=MAsku-zG5j7hV9svst0pxw9WTJk3ilq3DmLb1obNHmjsOcIL8CF2T0UzYpiGQ2lTQraiPNQ2nzhLgH1liGP~7JjoZ~HousFx1w7POggIWYkhDu7ktlGQCVvjxBqZvfoWpgVvi1U4lpy7Ud2c0Hq1r3HphUH-ZiHqiGSKfTarUZEQOLLx~5CXz~moIM~TwAF0KDLwbAPkceylZUOTcdzBAH~IsD-LBXK-7WbBA5ZOFOXhAtrLWQnzCRU0HjnkXRUNtKGAJO7ApXkg8PcNQaEWBGiJ6hrnCsbPdjaVFhOcRd-6mtV-zg2WTt1kVcd8UjA4GAQ42mm1SIw5xgTkWc-~cw__&Key-Pair-Id=APKAI7S6A5RYOXBWRPDA"
+tar -zxvf cellranger-3.1.0.tar.gz
+wget https://cf.10xgenomics.com/supp/cell-exp/refdata-cellranger-GRCh38-3.0.0.tar.gz
+tar -zxvf refdata-cellranger-GRCh38-3.0.0.tar.gz
+/cellranger-3.0.2/cellranger count --id=tiny_test --fastqs=(e.g.XXX_S1_L02_R2_001.fastq.gz ) --transcriptome=refdata-cellranger-GRCh38-3.0.0(GRch38 database path)
