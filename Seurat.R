@@ -89,27 +89,33 @@ head(Idents(pbmc), 5)
 # UMAP/tSNE find the cluster 
 pbmc <- RunUMAP(pbmc, dims = 1:13)
 DimPlot(pbmc, reduction = "umap")
-# Find marker gene of cell clustering
-cluster2.markers <- FindMarkers(pbmc, ident.1 = 2, min.pct = 0.25)
-head(cluster2.markers, n = 5)
+# Find marker gene of cell clustering(Top5)
+#cluster2.markers <- FindMarkers(pbmc, ident.1 = 2, min.pct = 0.25)
+#head(cluster2.markers, n = 5)
 cluster5.markers <- FindMarkers(pbmc, ident.1 = 5, ident.2 = c(0, 3), min.pct = 0.25)
 head(cluster5.markers, n = 5)
+#Find markers for every cluster compared to all remaining cells, report only the positive ones
 pbmc.markers <- FindAllMarkers(pbmc, only.pos = TRUE, min.pct = 0.25, logfc.threshold = 0.25)
 pbmc.markers %>%
     group_by(cluster) %>%
     top_n(n = 2, wt = avg_log2FC)
 cluster0.markers <- FindMarkers(pbmc, ident.1 = 0, logfc.threshold = 0.25, test.use = "roc", only.pos = TRUE)
+#Violine plot different cell type of gene
 VlnPlot(pbmc, features = c("BRCA1", "EGFR"))
 VlnPlot(pbmc, features = c("CD4", "CD8"), slot = "counts", log = TRUE)
+# Based on Umap data plot different gene of cluster
 FeaturePlot(pbmc, features = c("MS4A1", "GNLY", "CD3E", "CD14", "FCER1A", "FCGR3A", "LYZ", "PPBP",
     "CD8A"))
+# Top10 DoHeatmap 
 pbmc.markers %>%
     group_by(cluster) %>%
     top_n(n = 10, wt = avg_log2FC) -> top10
 DoHeatmap(pbmc, features = top10$gene) + NoLegend()
+# Define cell type indentity to the all cluster
 new.cluster.ids <- c("Naive CD4 T", "CD14+ Mono", "Memory CD4 T", "B", "CD8 T", "FCGR3A+ Mono",
     "NK", "DC", "Platelet")
 names(new.cluster.ids) <- levels(pbmc)
 pbmc <- RenameIdents(pbmc, new.cluster.ids)
 DimPlot(pbmc, reduction = "umap", label = TRUE, pt.size = 0.5) + NoLegend()
+# Save RD5 as database
 saveRDS(pbmc, file = "C:/Users/jimmy.fang/Documents/GSE_final.rds")
